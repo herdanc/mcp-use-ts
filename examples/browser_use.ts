@@ -24,7 +24,7 @@ async function main() {
     mcpServers: {
       playwright: {
         command: 'npx',
-        args: ['@playwright/mcp@latest'],
+        args: ['-y','@playwright/mcp@latest'],
         env: {
           DISPLAY: ':1',
         },
@@ -44,13 +44,11 @@ async function main() {
 
   // Run the query
   const result = await agent.run(
-    `Navigate to https://github.com/mcp-use/mcp-use, give a star to the project and write
+    `Navigate to https://github.com/herdanc/mcp-use-ts.git, give a star to the project and write
 a summary of the project.`,
     30,
   )
   console.error(`\nResult: ${result}`)
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch(console.error)
-}
+main().then(console.log).catch(console.error)

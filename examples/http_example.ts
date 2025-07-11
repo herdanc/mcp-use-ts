@@ -21,7 +21,7 @@ import { MCPAgent, MCPClient } from '../index.js'
 
 // Load environment variables from .env file
 config()
-
+console.log("OPENAI_API_KEY=", process.env.OPENAI_API_KEY)
 async function main() {
   const config = { mcpServers: { http: { url: 'https://gitmcp.io/docs' } } }
 
@@ -34,6 +34,8 @@ async function main() {
   // Create agent with the client
   const agent = new MCPAgent({ llm, client, maxSteps: 30 })
 
+  console.log("Running query", {config, agent} )
+
   // Run the query
   const result = await agent.run(
     'Which tools are available and what can they do?',
@@ -44,6 +46,4 @@ async function main() {
   await agent.close()
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch(console.error)
-}
+main().then(console.log).catch(console.error)
